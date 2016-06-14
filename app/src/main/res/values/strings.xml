@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Simple Twitter Client</string>
+    <string name="log_explanation">In order to access your feed you must log in to twitter.com and
+        supply the text box with the pin provided.</string>
+    <string name="login">Login</string>
+    <string name="enter_pin_here">Enter Pin Here</string>
+    <string name="enter">Enter</string>
+    <string name="error_connecting">Error connecting to Twitter</string>
+    <string name="missing_pin">Missing pin!</string>
+    <string name="wrong_pin">Wrong Pin</string>
+</resources>
