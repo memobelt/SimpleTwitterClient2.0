@@ -42,7 +42,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         Status status = tweets.get(position);
         User user = status.getUser();
-
         holder.tvName.setText(user.getName());
         holder.tvScreenName.setText(user.getScreenName());
         Glide.with(context).load(user.getProfileImageURL()).into(holder.ivProfile);
@@ -58,7 +57,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             holder.tvName.setTextColor(textColor);
             holder.tvScreenName.setTextColor(textColor);
             holder.tvTweetText.setTextColor(textColor);
-            holder.rlBackgroundCards.setBackgroundColor(Color.parseColor("#" + user.getProfileSidebarFillColor()));
+            holder.rlBackgroundCards.setBackgroundColor(Color.parseColor("#" +
+                    user.getProfileSidebarFillColor()));
         } catch (IllegalArgumentException e) {
         }
     }

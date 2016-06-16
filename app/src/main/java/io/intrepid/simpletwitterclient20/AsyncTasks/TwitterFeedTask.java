@@ -10,12 +10,12 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
-public class TwitterFeed extends AsyncTask<Void, Void, ResponseList<Status>> {
-    private static final String TAG = TwitterFeed.class.getSimpleName();
+public class TwitterFeedTask extends AsyncTask<Void, Void, ResponseList<Status>> {
+    private static final String TAG = TwitterFeedTask.class.getSimpleName();
     String tokenSecret;
     String token;
 
-    public TwitterFeed(String tokenSecret, String token) {
+    public TwitterFeedTask(String tokenSecret, String token) {
         this.tokenSecret = tokenSecret;
         this.token = token;
     }
@@ -33,8 +33,7 @@ public class TwitterFeed extends AsyncTask<Void, Void, ResponseList<Status>> {
         try {
             return twitter.getHomeTimeline();
         } catch (TwitterException e) {
-            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 }

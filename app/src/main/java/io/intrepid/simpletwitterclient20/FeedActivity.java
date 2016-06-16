@@ -6,16 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import io.intrepid.simpletwitterclient20.AsyncTasks.TwitterFeed;
+import io.intrepid.simpletwitterclient20.AsyncTasks.TwitterFeedTask;
 import io.intrepid.simpletwitterclient20.adapter.TweetAdapter;
 import twitter4j.Status;
 
 public class FeedActivity extends AppCompatActivity {
-    private static final String TAG = FeedActivity.class.getSimpleName();
     List<Status> tweets;
 
     @Override
@@ -30,11 +30,14 @@ public class FeedActivity extends AppCompatActivity {
 
     private void loadFeed(String tokenSecret, String token) {
         try {
-            tweets = new TwitterFeed(tokenSecret, token).execute().get();
+            tweets = new TwitterFeedTask(tokenSecret, token).execute().get();
+            if(tweets == null){
+                Toast.makeText(FeedActivity.this, R.string.problem_loading, Toast.LENGTH_SHORT).show();
+            }
             TweetAdapter tweetAdapter = new TweetAdapter(tweets, this);
             setUpRecyclerView(tweetAdapter);
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            Toast.makeText(FeedActivity.this, R.string.problem_loading, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -42,6 +45,7 @@ public class FeedActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         RecyclerView rvTweets = (RecyclerView) findViewById(R.id.rv_tweets);
+        assert rvTweets != null;
         rvTweets.setLayoutManager(linearLayoutManager);
         rvTweets.setAdapter(tweetAdapter);
         rvTweets.setVisibility(View.VISIBLE);
